@@ -40,7 +40,11 @@ class InstallData implements InstallDataInterface
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
-    {
+    {        
+     
+        $installer = $setup->createMigrationSetup();
+        $setup->startSetup();
+        
         $cmsPages = [
             [
                 'title' => '404 Not Found',
@@ -341,9 +345,6 @@ EOD;
                 $footerLinksBlock->setContent($content)->save();
             }
         }
-
-        $installer = $setup->createMigrationSetup();
-        $setup->startSetup();
 
         $installer->appendClassAliasReplace(
             'cms_block',
